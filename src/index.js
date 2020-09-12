@@ -9,6 +9,7 @@ import store from "./store";
 import "./utils/flexible";
 
 import "./assets/css/reset.css";
+import "./assets/css/iconfont.css";
 
 ReactDOM.render(
   <Provider store={store}>
