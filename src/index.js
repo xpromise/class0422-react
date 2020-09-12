@@ -8,6 +8,8 @@ import store from "./store";
 // rem适配
 import "./utils/flexible";
 
+import "./assets/css/reset.css";
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

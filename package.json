@@ -6,11 +6,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "antd-mobile": "^2.3.3",
     "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -38,9 +42,6 @@
     "customize-cra": "^1.0.0",
     "postcss-px2rem": "^0.3.0",
     "react-app-rewired": "^2.1.6",
-    "react-redux": "^7.2.1",
-    "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-devtools-extension": "^2.13.8"
   }
 }
