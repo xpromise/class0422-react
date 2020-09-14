@@ -43,5 +43,6 @@
     "postcss-px2rem": "^0.3.0",
     "react-app-rewired": "^2.1.6",
     "redux-devtools-extension": "^2.13.8"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

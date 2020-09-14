@@ -23,7 +23,7 @@ request.interceptors.response.use(
     // 响应体数据
     const result = res.data;
     // 判断功能是否成功
-    if (result.code === 10000) {
+    if (result.code === 20000) {
       // 功能成功
       // 返回成功的数据
       return result.data;

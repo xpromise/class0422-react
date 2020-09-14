@@ -9,6 +9,7 @@
 }
 
 .phone-prefix {
+  color: #000;
   display: flex;
   align-items: center;
 }

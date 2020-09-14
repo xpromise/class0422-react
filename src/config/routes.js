@@ -16,6 +16,10 @@ const VerifyPhone = lazy(() =>
   )
 );
 
+const CountryPicker = lazy(() =>
+  import(/* webpackChunkName: 'CountryPicker' */ "@comps/CountryPicker")
+);
+
 const routes = [
   {
     path: "/login",
@@ -24,6 +28,10 @@ const routes = [
   {
     path: "/regist/verifyphone",
     component: VerifyPhone,
+  },
+  {
+    path: "/common/countrypicker",
+    component: CountryPicker,
   },
 ];
 

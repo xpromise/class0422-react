@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavBar, Icon, WingBlank, InputItem, Button, Modal } from "antd-mobile";
+import { Link } from "react-router-dom";
 
 import "./index.css";
 
@@ -47,10 +48,10 @@ export default class VerifyPhone extends Component {
         </NavBar>
         <WingBlank size="lg">
           <InputItem clear placeholder="请输入手机号" className="regist-phone">
-            <div className="phone-prefix">
+            <Link to="/common/countrypicker" className="phone-prefix">
               <span>+86</span>
               <Icon type="down" />
-            </div>
+            </Link>
           </InputItem>
           <WingBlank size="lg">
             <Button type="warning" disabled className="warning-btn">
