@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import { NavBar, Icon, WingBlank, InputItem, Button, Modal } from "antd-mobile";
 import { Link } from "react-router-dom";
+import { createForm } from "rc-form";
 
 import "./index.css";
 
-export default class VerifyPhone extends Component {
+const PHONE_REG = /(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57]|198)[0-9]{8}$/;
+
+class VerifyPhone extends Component {
+  state = {
+    isDisabled: true,
+  };
+
   componentDidMount() {
     if (this.props.location.state) return;
     // 弹出警告提示框
@@ -37,27 +44,73 @@ export default class VerifyPhone extends Component {
     );
   }
 
+  // 校验表单的函数
+  validator = (rule, value, callback) => {
+    /*
+      rule 规则：包含了表单项字段
+      value 表单项的值
+    */
+
+    let isDisabled = true;
+    if (value && value.length === 11 && PHONE_REG.test(value)) {
+      isDisabled = false;
+    }
+    this.setState({
+      isDisabled,
+    });
+    // 必须要调用(如果不调用，将来就收集不到表单数据)
+    /*
+      校验成功 callback();
+      校验失败 callback(message);
+    */
+    callback();
+  };
+
   render() {
     const { state } = this.props.location;
+    const { getFieldProps } = this.props.form;
+    const { isDisabled } = this.state;
 
     return (
       <div className="container">
         <NavBar
           mode="light"
           icon={<Icon className="icon-left" type="left" />}
-          onLeftClick={() => console.log("onLeftClick")}
+          onLeftClick={() => this.props.history.push("/login")}
         >
           硅谷注册
         </NavBar>
         <WingBlank size="lg">
-          <InputItem clear placeholder="请输入手机号" className="regist-phone">
+          <InputItem
+            {...getFieldProps(
+              // 表单字段
+              "phone",
+              {
+                rules: [
+                  // 表单校验规则
+                  {
+                    // 自定义表单校验规则
+                    // 当用户输入数据时，会触发
+                    validator: this.validator,
+                  },
+                ],
+              }
+            )}
+            clear
+            placeholder="请输入手机号"
+            className="regist-phone"
+          >
             <Link to="/common/countrypicker" className="phone-prefix">
               <span>{state ? state : "+86"}</span>
               <Icon type="down" />
             </Link>
           </InputItem>
           <WingBlank size="lg">
-            <Button type="warning" disabled className="warning-btn">
+            <Button
+              type="warning"
+              disabled={isDisabled}
+              className="warning-btn"
+            >
               下一步
             </Button>
           </WingBlank>
@@ -66,3 +119,7 @@ export default class VerifyPhone extends Component {
     );
   }
 }
+
+// createForm是一个高阶组件，负责给VerifyPhone传递form属性
+// form包含了表单项所有参数
+export default createForm()(VerifyPhone);

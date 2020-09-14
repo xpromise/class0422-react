@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { NavBar, Icon, List } from "antd-mobile";
 
 import { reqCountryData } from "@api/common";
@@ -15,7 +15,7 @@ export default class CountryPicker extends Component {
     // 发送请求请求数据
     reqCountryData()
       .then((res) => {
-        console.log("成功~", res);
+        // console.log("成功~", res);
         this.setState({
           countryData: res,
         });
@@ -47,13 +47,14 @@ export default class CountryPicker extends Component {
           className="country-nav"
           mode="light"
           icon={<Icon className="icon-left" type="left" />}
-          onLeftClick={() => console.log("onLeftClick")}
+          onLeftClick={() => this.props.history.goBack()}
         >
           选择国家或者地区
         </NavBar>
         {/* 右侧导航 */}
         <div className="country-navbar" onTouchEnd={this.jumpToCountry}>
           {keys.map((key, index) => {
+            // eslint-disable-next-line
             return <a key={index}>{key}</a>;
           })}
         </div>
