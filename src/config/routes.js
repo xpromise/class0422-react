@@ -10,10 +10,20 @@ const Login = lazy(() =>
   import(/* webpackChunkName: 'Login' */ "@pages/Login")
 );
 
+const VerifyPhone = lazy(() =>
+  import(
+    /* webpackChunkName: 'VerifyPhone' */ "@pages/register/components/VerifyPhone"
+  )
+);
+
 const routes = [
   {
     path: "/login",
     component: Login,
+  },
+  {
+    path: "/regist/verifyphone",
+    component: VerifyPhone,
   },
 ];
 

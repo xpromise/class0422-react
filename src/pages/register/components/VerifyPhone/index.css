@@ -1,0 +1,15 @@
+.regist-phone {
+  margin: 30px 0;
+}
+.policy-text {
+  color: #000;
+}
+.policy-text span {
+  text-decoration: underline;
+  font-weight: 700;
+}
+.policy-link-tip {
+  margin: 0;
+  text-align: left;
+  color: #000;
+}

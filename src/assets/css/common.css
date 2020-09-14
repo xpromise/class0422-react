@@ -1,0 +1,21 @@
+.icon-left {
+  color: #000;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.phone-prefix {
+  display: flex;
+  align-items: center;
+}
+.phone-prefix span {
+  margin-right: 10px;
+}
+
+a.warning-btn {
+  border-radius: 50px;
+}

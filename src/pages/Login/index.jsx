@@ -14,10 +14,10 @@ import "./index.css";
 export default class Login extends Component {
   render() {
     return (
-      <div className="login">
+      <div className="login container">
         <NavBar
           mode="light"
-          icon={<Icon className="login-icon-left" type="left" />}
+          icon={<Icon className="icon-left" type="left" />}
           onLeftClick={() => console.log("onLeftClick")}
         >
           硅谷注册登录
@@ -25,7 +25,7 @@ export default class Login extends Component {
         <WhiteSpace size="xl" />
         <WingBlank size="lg">
           <InputItem clear placeholder="请输入手机号">
-            <div className="login-phone-prefix">
+            <div className="phone-prefix">
               <span>+86</span>
               <Icon type="down" />
             </div>
@@ -37,14 +37,16 @@ export default class Login extends Component {
           </div>
           <WhiteSpace size="lg" />
           <WingBlank size="lg">
-            <Button type="warning" disabled className="login-btn">
+            <Button type="warning" disabled className="warning-btn">
               登录
             </Button>
           </WingBlank>
           <WhiteSpace size="lg" />
           <div className="login-btn-wrap">
             <button className="login-btn-text">账户密码登录</button>
-            <button className="login-btn-text">手机快速注册</button>
+            <Link to="/regist/verifyphone" className="login-btn-text">
+              手机快速注册
+            </Link>
           </div>
           <div className="login-other-text">其他登录方式</div>
           <div className="login-icons">
@@ -54,7 +56,9 @@ export default class Login extends Component {
           </div>
           <span className="login-private-policy">
             未注册的手机号验证后将自动创建硅谷账号, 登录即代表您已同意
-            <Link to="/" className="login-private-policy-btn">硅谷隐私政策</Link>
+            <Link to="/" className="login-private-policy-btn">
+              硅谷隐私政策
+            </Link>
           </span>
         </WingBlank>
       </div>
