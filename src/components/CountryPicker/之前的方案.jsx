@@ -26,14 +26,8 @@ export default class CountryPicker extends Component {
   }
 
   jumpToCountry = (e) => {
-    // offsetTop 开启定位父元素的距离
-    window.scrollTo(0, document.getElementById(e.target.textContent).offsetTop);
-  };
-
-  selectCountry = (value) => {
-    return () => {
-      this.props.history.push("/regist/verifyphone", value);
-    };
+    // console.log(e.target.textContent);
+    document.getElementById(e.target.textContent).scrollIntoView();
   };
 
   render() {
@@ -51,34 +45,34 @@ export default class CountryPicker extends Component {
         >
           选择国家或者地区
         </NavBar>
-        {/* 右侧导航 */}
         <div className="country-navbar" onTouchEnd={this.jumpToCountry}>
           {keys.map((key, index) => {
             return <a key={index}>{key}</a>;
           })}
         </div>
-        {/* 列表展示 */}
         <div className="country-container">
           {keys.map((key, index) => {
             const items = countryData[key];
             return (
-              <List id={key} key={index} renderHeader={() => key}>
-                {items.map((item, index) => {
-                  // 注意item是对象
-                  const key = Object.keys(item)[0];
-                  const value = "+" + item[key];
-                  return (
-                    <Item
-                      className="country-item"
-                      key={index}
-                      extra={value}
-                      onClick={this.selectCountry(value)}
-                    >
-                      {key}
-                    </Item>
-                  );
-                })}
-              </List>
+              <div key={index} className="country-list">
+                <div className="country-first" id={key}></div>
+                <List renderHeader={() => key}>
+                  {items.map((item, index) => {
+                    // 注意item是对象
+                    const key = Object.keys(item)[0];
+                    const value = item[key];
+                    return (
+                      <Item
+                        className="country-item"
+                        key={index}
+                        extra={"+" + value}
+                      >
+                        {key}
+                      </Item>
+                    );
+                  })}
+                </List>
+              </div>
             );
           })}
         </div>

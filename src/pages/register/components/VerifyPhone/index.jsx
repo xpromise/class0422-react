@@ -6,6 +6,7 @@ import "./index.css";
 
 export default class VerifyPhone extends Component {
   componentDidMount() {
+    if (this.props.location.state) return;
     // 弹出警告提示框
     Modal.alert(
       // 标题
@@ -37,6 +38,8 @@ export default class VerifyPhone extends Component {
   }
 
   render() {
+    const { state } = this.props.location;
+
     return (
       <div className="container">
         <NavBar
@@ -49,7 +52,7 @@ export default class VerifyPhone extends Component {
         <WingBlank size="lg">
           <InputItem clear placeholder="请输入手机号" className="regist-phone">
             <Link to="/common/countrypicker" className="phone-prefix">
-              <span>+86</span>
+              <span>{state ? state : "+86"}</span>
               <Icon type="down" />
             </Link>
           </InputItem>
