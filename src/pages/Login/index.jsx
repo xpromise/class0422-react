@@ -111,6 +111,10 @@ class Login extends Component {
       });
   };
 
+  loginByGithub = () => {
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=5229ff4071eba4864cc9`;
+  };
+
   render() {
     const { getFieldProps } = this.props.form;
     const {
@@ -190,7 +194,10 @@ class Login extends Component {
           </div>
           <div className="login-other-text">其他登录方式</div>
           <div className="login-icons">
-            <span className="iconfont icon-github"></span>
+            <span
+              onTouchEnd={this.loginByGithub}
+              className="iconfont icon-github"
+            ></span>
             <span className="iconfont icon-qq"></span>
             <span className="iconfont icon-wechat"></span>
           </div>
