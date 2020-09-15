@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { NavBar, Icon, WingBlank, InputItem, Button, Modal } from "antd-mobile";
+import {
+  NavBar,
+  Icon,
+  WingBlank,
+  InputItem,
+  Button,
+  Modal,
+  Toast,
+} from "antd-mobile";
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
 
 import { reqSendCode } from "@api/login";
+import { reqVerifyCode } from "@api/regist";
 
 import "./index.css";
 // 需要引入图片
@@ -50,6 +59,8 @@ class VerifyCode extends Component {
   };
 
   resend = () => {
+    if (this.state.isSendCode) return;
+
     const phone = this.props.location.state || localStorage.getItem("phone");
 
     Modal.alert(
@@ -89,6 +100,19 @@ class VerifyCode extends Component {
     callback();
   };
 
+  next = () => {
+    // 发送请求，验证验证码是否正确
+    const phone = this.props.location.state || localStorage.getItem("phone");
+    const code = this.props.form.getFieldValue("code");
+    reqVerifyCode(phone, code)
+      .then((res) => {
+        this.props.history.push("/regist/verifypassword", phone);
+      })
+      .catch((err) => {
+        Toast.info("验证码错误！");
+      });
+  };
+
   render() {
     const { isDisabled, timeout, isSendCode } = this.state;
     const { getFieldProps } = this.props.form;
@@ -98,7 +122,7 @@ class VerifyCode extends Component {
         <NavBar
           mode="light"
           icon={<Icon className="icon-left" type="left" />}
-          onLeftClick={() => this.props.history.push("/login")}
+          onLeftClick={() => this.props.history.goBack()}
         >
           硅谷注册
         </NavBar>

@@ -116,7 +116,7 @@ class VerifyPhone extends Component {
         <NavBar
           mode="light"
           icon={<Icon className="icon-left" type="left" />}
-          onLeftClick={() => this.props.history.push("/login")}
+          onLeftClick={() => this.props.history.goBack()}
         >
           硅谷注册
         </NavBar>
