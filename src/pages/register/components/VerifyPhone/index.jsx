@@ -3,6 +3,8 @@ import { NavBar, Icon, WingBlank, InputItem, Button, Modal } from "antd-mobile";
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
 
+import { reqVerifyPhone } from "@api/regist";
+
 import "./index.css";
 
 const PHONE_REG = /(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57]|198)[0-9]{8}$/;
@@ -66,6 +68,44 @@ class VerifyPhone extends Component {
     callback();
   };
 
+  next = () => {
+    const phone = this.props.form.getFieldValue("phone");
+    // console.log(phone);
+    // 发送请求，验证手机号是否正确
+    reqVerifyPhone(phone)
+      .then((res) => {
+        // console.log(res);
+        // 手机号没有注册过
+
+        Modal.alert(
+          // 标题
+          "",
+          // 内容
+          "我们将发送短信/语音验证码至：" + phone,
+          // 按钮
+          [
+            {
+              text: "取消",
+              // onPress: () => {},
+            },
+            {
+              text: "确认",
+              onPress: () => {
+                // 将phone存储在localstorage中
+                localStorage.setItem("phone", phone);
+                // 去下一个页面
+                this.props.history.push("/regist/verifycode", phone);
+              },
+              style: { backgroundColor: "red", color: "#fff" },
+            },
+          ]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   render() {
     const { state } = this.props.location;
     const { getFieldProps } = this.props.form;
@@ -110,6 +150,7 @@ class VerifyPhone extends Component {
               type="warning"
               disabled={isDisabled}
               className="warning-btn"
+              onClick={this.next}
             >
               下一步
             </Button>
