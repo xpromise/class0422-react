@@ -12,3 +12,14 @@ export const reqSendCode = (phone) => {
     },
   });
 };
+
+export const reqLogin = (phone, code) => {
+  return request({
+    method: "POST",
+    url: PREFIX_URL + "/phone",
+    data: {
+      phone,
+      code
+    },
+  });
+};

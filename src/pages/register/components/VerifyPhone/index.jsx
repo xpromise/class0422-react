@@ -3,11 +3,11 @@ import { NavBar, Icon, WingBlank, InputItem, Button, Modal } from "antd-mobile";
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
 
+import { PHONE_REG } from "@utils/reg";
 import { reqVerifyPhone } from "@api/regist";
 
 import "./index.css";
 
-const PHONE_REG = /(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57]|198)[0-9]{8}$/;
 
 class VerifyPhone extends Component {
   state = {

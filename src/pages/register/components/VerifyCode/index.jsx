@@ -13,12 +13,11 @@ import { createForm } from "rc-form";
 
 import { reqSendCode } from "@api/login";
 import { reqVerifyCode } from "@api/regist";
+import { CODE_REG } from "@utils/reg";
 
 import "./index.css";
 // 需要引入图片
 import msg from "./msg.png";
-
-const CODE_REG = /[0-9]{6}/;
 
 class VerifyCode extends Component {
   state = {

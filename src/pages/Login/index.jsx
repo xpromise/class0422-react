@@ -6,13 +6,120 @@ import {
   WingBlank,
   WhiteSpace,
   Button,
+  Toast,
 } from "antd-mobile";
 import { Link } from "react-router-dom";
+import { createForm } from "rc-form";
+
+import { PHONE_REG, CODE_REG } from "@utils/reg";
+import { reqSendCode, reqLogin } from "@api/login";
 
 import "./index.css";
 
-export default class Login extends Component {
+class Login extends Component {
+  state = {
+    isDisabledGetCode: true,
+    isDisabledLogin: true,
+    isSendCode: false,
+    timeout: 60,
+  };
+
+  validator = (rule, value, callback) => {
+    const field = rule.field;
+    // 是否禁止获取验证码
+    let isDisabledGetCode = true;
+    let isDisabledLogin = true;
+
+    if (field === "phone") {
+      // 校验手机号
+      if (value && value.length === 11 && PHONE_REG.test(value)) {
+        // 校验通过
+        isDisabledGetCode = false;
+      }
+
+      this.setState({
+        isDisabledGetCode,
+      });
+    } else {
+      if (
+        // 验证码
+        value &&
+        value.length === 6 &&
+        CODE_REG.test(value)
+      ) {
+        // 校验通过
+        isDisabledLogin = false;
+      }
+
+      this.setState({
+        isDisabledLogin,
+      });
+    }
+
+    callback();
+  };
+
+  sendCode = () => {
+    const { isDisabledGetCode, isSendCode } = this.state;
+
+    if (isDisabledGetCode || isSendCode) return;
+
+    const phone = this.props.form.getFieldValue("phone");
+
+    reqSendCode(phone)
+      .then(() => {
+        // 启动倒计时
+        this.setState({
+          isSendCode: true,
+        });
+
+        const timer = setInterval(() => {
+          const { timeout } = this.state;
+          const result = timeout - 1;
+
+          if (result <= 0) {
+            this.setState({
+              isSendCode: false,
+              timeout: 60,
+            });
+            clearInterval(timer);
+            return;
+          }
+
+          this.setState({
+            timeout: result,
+          });
+        }, 1000);
+      })
+      .catch();
+  };
+
+  login = () => {
+    if (!this.state.isSendCode) {
+      Toast.info("请先获取验证码");
+      return;
+    }
+    // 收集数据
+    const { phone, code } = this.props.form.getFieldsValue();
+    reqLogin(phone, code)
+      .then((res) => {
+        console.log(res);
+        this.props.history.push("/");
+      })
+      .catch((err) => {
+        Toast.info(err);
+      });
+  };
+
   render() {
+    const { getFieldProps } = this.props.form;
+    const {
+      isDisabledGetCode,
+      isDisabledLogin,
+      isSendCode,
+      timeout,
+    } = this.state;
+
     return (
       <div className="login container">
         <NavBar
@@ -24,7 +131,17 @@ export default class Login extends Component {
         </NavBar>
         <WhiteSpace size="xl" />
         <WingBlank size="lg">
-          <InputItem clear placeholder="请输入手机号">
+          <InputItem
+            clear
+            placeholder="请输入手机号"
+            {...getFieldProps("phone", {
+              rules: [
+                {
+                  validator: this.validator,
+                },
+              ],
+            })}
+          >
             <div className="phone-prefix">
               <span>+86</span>
               <Icon type="down" />
@@ -32,12 +149,35 @@ export default class Login extends Component {
           </InputItem>
           <WhiteSpace size="lg" />
           <div className="login-code">
-            <InputItem clear placeholder="请输入手机验证码" />
-            <button className="login-btn-text">获取验证码</button>
+            <InputItem
+              clear
+              placeholder="请输入手机验证码"
+              {...getFieldProps("code", {
+                rules: [
+                  {
+                    validator: this.validator,
+                  },
+                ],
+              })}
+            />
+            <button
+              className="login-btn-text login-btn"
+              style={{
+                color: isSendCode || isDisabledGetCode ? "#848689" : "red",
+              }}
+              onTouchEnd={this.sendCode}
+            >
+              {isSendCode ? `重新发送(${timeout}s)` : "获取验证码"}
+            </button>
           </div>
           <WhiteSpace size="lg" />
           <WingBlank size="lg">
-            <Button type="warning" disabled className="warning-btn">
+            <Button
+              type="warning"
+              disabled={isDisabledLogin || isDisabledGetCode}
+              className="warning-btn"
+              onClick={this.login}
+            >
               登录
             </Button>
           </WingBlank>
@@ -65,3 +205,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default createForm()(Login);

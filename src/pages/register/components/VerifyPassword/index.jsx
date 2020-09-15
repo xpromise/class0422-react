@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
 
 import { reqRegist } from "@api/regist";
+import { PASSWORD_REG } from "@utils/reg";
 // 需要引入图片
 import msg from "./msg.png";
 import "./index.css";
-
-const PASSWORD_REG = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 
 class VerifyPassword extends Component {
   state = {

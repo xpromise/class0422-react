@@ -30,7 +30,7 @@ request.interceptors.response.use(
     } else {
       // 功能失败
       // 返回失败的原因
-      return Promise.reject(result.msg);
+      return Promise.reject(result.message);
     }
   },
   (err) => {
