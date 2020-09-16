@@ -23,3 +23,14 @@ export const reqLogin = (phone, code) => {
     },
   });
 };
+
+export const reqPasswordLogin = (phone, password) => {
+  return request({
+    method: "POST",
+    url: PREFIX_URL + "/user",
+    data: {
+      phone,
+      password
+    },
+  });
+};

@@ -10,7 +10,7 @@ export default class App extends Component {
         <Suspense fallback={<div>loading...</div>}>
           <Switch>
             {routes.map((route) => {
-              return <Route key={route.path} {...route} />;
+              return <Route key={route.path} {...route} exact />;
             })}
           </Switch>
         </Suspense>

@@ -1,0 +1,119 @@
+.login-code {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-btn-text {
+  position: relative;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  /* border-left: 1px solid #ccc; */
+  color: #848689;
+  font-size: 14px;
+  padding: 5px 20px;
+}
+.login-btn {
+  width: 140px;
+}
+/* 1px像素框 */
+.login-code .login-btn-text::after {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  content: "";
+  display: block;
+  height: 24px;
+  width: 1px;
+  background-color: #aaa;
+}
+
+.login-btn-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-other-text {
+  position: relative;
+  margin-top: 150px;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 12px;
+  text-align: center;
+}
+.login-other-text::before,
+.login-other-text::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  content: "";
+  display: block;
+  height: 1px;
+  width: 90px;
+  background-color: #ccc;
+}
+.login-other-text::before {
+  left: 20px;
+}
+.login-other-text::after {
+  right: 20px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .login-code button::after {
+    transform: scaleX(0.5) translateY(-50%);
+  }
+  .login-other-text::before,
+  .login-other-text::after {
+    transform: scaleY(0.5) translateY(-50%);
+  }
+}
+
+.login-icons {
+  margin: 30px auto;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+.login-icons .iconfont {
+  display: block;
+  text-align: center;
+  line-height: 50px;
+  font-size: 35px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.icon-github {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.icon-qq {
+  font-weight: 700;
+  color: skyblue;
+  background-color: rgba(135, 206, 235, 0.2);
+}
+.icon-wechat {
+  color: rgb(74, 192, 90);
+  background-color: rgba(74, 192, 90, 0.2);
+}
+
+.login-private-policy {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.3);
+}
+.login-private-policy-btn {
+  color: #4a90e2;
+}
+
+@media (-webkit-min-device-pixel-ratio: 3) {
+  .login-code button::after {
+    transform: scaleX(0.3333) translateY(-50%);
+  }
+  .login-other-text::before,
+  .login-other-text::after {
+    transform: scaleY(0.3333) translateY(-50%);
+  }
+}

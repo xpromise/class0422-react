@@ -6,8 +6,16 @@ import { lazy } from "react";
 
 // 使用路由懒加载
 // lazy不能单独使用，必须配置Suspence组件才能一起使用
-const Login = lazy(() =>
-  import(/* webpackChunkName: 'Login' */ "@pages/Login")
+const PhoneLogin = lazy(() =>
+  import(
+    /* webpackChunkName: 'PhoneLogin' */ "@pages/Login/components/PhoneLogin"
+  )
+);
+
+const PasswordLogin = lazy(() =>
+  import(
+    /* webpackChunkName: 'PasswordLogin' */ "@pages/Login/components/PasswordLogin"
+  )
 );
 
 const VerifyPhone = lazy(() =>
@@ -35,7 +43,11 @@ const CountryPicker = lazy(() =>
 const routes = [
   {
     path: "/login",
-    component: Login,
+    component: PhoneLogin,
+  },
+  {
+    path: "/login/pwd",
+    component: PasswordLogin,
   },
   {
     path: "/regist/verifyphone",

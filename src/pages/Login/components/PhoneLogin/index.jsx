@@ -187,7 +187,9 @@ class Login extends Component {
           </WingBlank>
           <WhiteSpace size="lg" />
           <div className="login-btn-wrap">
-            <button className="login-btn-text">账户密码登录</button>
+            <Link to="/login/pwd" className="login-btn-text">
+              账户密码登录
+            </Link>
             <Link to="/regist/verifyphone" className="login-btn-text">
               手机快速注册
             </Link>
