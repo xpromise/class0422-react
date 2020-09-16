@@ -3,11 +3,13 @@ import { NavBar, Icon, WingBlank, InputItem, Button, Modal } from "antd-mobile";
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
 
+import { connect } from "react-redux";
+import { savePhone } from "@store/actions/phone";
+
 import { PHONE_REG } from "@utils/reg";
 import { reqVerifyPhone } from "@api/regist";
 
 import "./index.css";
-
 
 class VerifyPhone extends Component {
   state = {
@@ -76,7 +78,6 @@ class VerifyPhone extends Component {
       .then((res) => {
         // console.log(res);
         // 手机号没有注册过
-
         Modal.alert(
           // 标题
           "",
@@ -91,10 +92,12 @@ class VerifyPhone extends Component {
             {
               text: "确认",
               onPress: () => {
+                // 存储在redux中
+                this.props.savePhone(phone);
                 // 将phone存储在localstorage中
                 localStorage.setItem("phone", phone);
                 // 去下一个页面
-                this.props.history.push("/regist/verifycode", phone);
+                this.props.history.push("/regist/verifycode");
               },
               style: { backgroundColor: "red", color: "#fff" },
             },
@@ -163,4 +166,6 @@ class VerifyPhone extends Component {
 
 // createForm是一个高阶组件，负责给VerifyPhone传递form属性
 // form包含了表单项所有参数
-export default createForm()(VerifyPhone);
+export default connect(null, {
+  savePhone,
+})(createForm()(VerifyPhone));

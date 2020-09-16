@@ -11,6 +11,9 @@ import {
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
 
+import { connect } from "react-redux";
+import { savePhone } from "@store/actions/phone";
+
 import { PHONE_REG, CODE_REG } from "@utils/reg";
 import { reqSendCode, reqLogin } from "@api/login";
 
@@ -66,6 +69,11 @@ class Login extends Component {
 
     const phone = this.props.form.getFieldValue("phone");
 
+    // 存储手机号到redux中
+    this.props.savePhone(phone);
+    // 持久化存储
+    localStorage.setItem("phone", phone);
+
     reqSendCode(phone)
       .then(() => {
         // 启动倒计时
@@ -117,6 +125,8 @@ class Login extends Component {
 
   render() {
     const { getFieldProps } = this.props.form;
+    const { phone } = this.props;
+
     const {
       isDisabledGetCode,
       isDisabledLogin,
@@ -144,6 +154,7 @@ class Login extends Component {
                   validator: this.validator,
                 },
               ],
+              initialValue: phone,
             })}
           >
             <div className="phone-prefix">
@@ -215,4 +226,21 @@ class Login extends Component {
   }
 }
 
-export default createForm()(Login);
+/*
+  所有组件默认都接受不到redux数据
+  需要使用redux数据，必须通过高阶组件connect传入
+*/
+// const Form = createForm()(Login);
+// const Connect = connect()(Form);
+// export default Connect;
+export default connect(
+  // 负责给组件传递redux的状态数据
+  (state) => ({
+    // phone: state, // 之前只有一个reducer函数，所有state就是phone
+    phone: state.phone, // 现在有多个reducer函数
+  }),
+  // 负责给组件传递更新redux状态数据的方法
+  {
+    savePhone,
+  }
+)(createForm()(Login));

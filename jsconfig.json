@@ -6,7 +6,8 @@
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
       "@pages/*": ["./src/pages/*"],
-      "@comps/*": ["./src/components/*"]
+      "@comps/*": ["./src/components/*"],
+      "@store/*": ["./src/store/*"]
     }
   },
   "exclude": ["node_modules", "build"]

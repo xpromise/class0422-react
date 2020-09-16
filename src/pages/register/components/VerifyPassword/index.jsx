@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavBar, Icon, WingBlank, InputItem, Button, Toast } from "antd-mobile";
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
+import { connect } from "react-redux";
 
 import { reqRegist } from "@api/regist";
 import { PASSWORD_REG } from "@utils/reg";
@@ -38,7 +39,7 @@ class VerifyPassword extends Component {
   };
 
   next = () => {
-    const phone = this.props.location.state || localStorage.getItem("phone");
+    const phone = this.props.phone;
     const password = this.props.form.getFieldValue("password");
     reqRegist(phone, password)
       .then((res) => {
@@ -110,4 +111,6 @@ class VerifyPassword extends Component {
   }
 }
 
-export default createForm()(VerifyPassword);
+export default connect((state) => ({ phone: state.phone }))(
+  createForm()(VerifyPassword)
+);

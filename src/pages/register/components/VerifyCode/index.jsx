@@ -10,6 +10,7 @@ import {
 } from "antd-mobile";
 import { Link } from "react-router-dom";
 import { createForm } from "rc-form";
+import { connect } from "react-redux";
 
 import { reqSendCode } from "@api/login";
 import { reqVerifyCode } from "@api/regist";
@@ -27,7 +28,7 @@ class VerifyCode extends Component {
   };
 
   sendCode = () => {
-    const phone = this.props.location.state || localStorage.getItem("phone");
+    const phone = this.props.phone;
 
     reqSendCode(phone)
       .then(() => {
@@ -101,11 +102,11 @@ class VerifyCode extends Component {
 
   next = () => {
     // 发送请求，验证验证码是否正确
-    const phone = this.props.location.state || localStorage.getItem("phone");
+    const phone = this.props.phone;
     const code = this.props.form.getFieldValue("code");
     reqVerifyCode(phone, code)
       .then((res) => {
-        this.props.history.push("/regist/verifypassword", phone);
+        this.props.history.push("/regist/verifypassword");
       })
       .catch((err) => {
         Toast.info("验证码错误！");
@@ -178,4 +179,6 @@ class VerifyCode extends Component {
   }
 }
 
-export default createForm()(VerifyCode);
+export default connect((state) => ({
+  phone: state.phone,
+}))(createForm()(VerifyCode));

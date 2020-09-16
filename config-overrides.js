@@ -26,5 +26,6 @@ module.exports = override(
     "@assets": resolve(__dirname, "./src/assets"),
     "@pages": resolve(__dirname, "./src/pages"),
     "@comps": resolve(__dirname, "./src/components"),
+    "@store": resolve(__dirname, "./src/store"),
   })
 );
