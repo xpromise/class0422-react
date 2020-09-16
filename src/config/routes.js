@@ -40,10 +40,18 @@ const CountryPicker = lazy(() =>
   import(/* webpackChunkName: 'CountryPicker' */ "@comps/CountryPicker")
 );
 
+const UserCenter = lazy(() =>
+  import(/* webpackChunkName: 'UserCenter' */ "@pages/UserCenter")
+);
+
 const routes = [
   {
     path: "/login",
     component: PhoneLogin,
+  },
+  {
+    path: "/user",
+    component: UserCenter,
   },
   {
     path: "/login/pwd",

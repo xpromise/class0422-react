@@ -19,7 +19,7 @@ export const reqLogin = (phone, code) => {
     url: PREFIX_URL + "/phone",
     data: {
       phone,
-      code
+      code,
     },
   });
 };
@@ -30,7 +30,14 @@ export const reqPasswordLogin = (phone, password) => {
     url: PREFIX_URL + "/user",
     data: {
       phone,
-      password
+      password,
     },
+  });
+};
+
+export const reqVerifyLogin = () => {
+  return request({
+    method: "POST",
+    url: PREFIX_URL + "/verify",
   });
 };
